@@ -1,6 +1,8 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:favoritos_youtube/blocs/favorite_bloc.dart';
 import 'package:favoritos_youtube/blocs/videos_bloc.dart';
 import 'package:favoritos_youtube/delegate/data_search.dart';
+import 'package:favoritos_youtube/models/video.dart';
 import 'package:favoritos_youtube/widgtes/VideoTile.dart';
 import 'package:flutter/material.dart';
 
@@ -18,8 +20,15 @@ class HomeScreen extends StatelessWidget {
         actions: [
           Align(
               alignment: Alignment.center,
-              child: Text(
-                "0",
+              child: StreamBuilder<Map<String, Video>>(
+                stream: BlocProvider.of<FavoriteBloc>(context).outFav,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData)
+                    return Text("${snapshot.data.length}");
+                  else {
+                    return Container();
+                  }
+                },
               )),
           IconButton(
             icon: Icon(Icons.star),
@@ -49,7 +58,7 @@ class HomeScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 if (index < snapshot.data.length) {
                   return VideoTile(snapshot.data[index]);
-                } else if(index>1){
+                } else if (index > 1) {
                   BlocProvider.of<VideoBloc>(context).inSearch.add(null);
                   return Container(
                     width: 40,
@@ -59,7 +68,7 @@ class HomeScreen extends StatelessWidget {
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
                     ),
                   );
-                }else{
+                } else {
                   return Container();
                 }
               },
