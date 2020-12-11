@@ -3,6 +3,7 @@ import 'package:favoritos_youtube/blocs/favorite_bloc.dart';
 import 'package:favoritos_youtube/blocs/videos_bloc.dart';
 import 'package:favoritos_youtube/delegate/data_search.dart';
 import 'package:favoritos_youtube/models/video.dart';
+import 'package:favoritos_youtube/screens/favorite_screen.dart';
 import 'package:favoritos_youtube/widgtes/VideoTile.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +33,10 @@ class HomeScreen extends StatelessWidget {
               )),
           IconButton(
             icon: Icon(Icons.star),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => FavoritesScreen()));
+            },
           ),
           IconButton(
             icon: Icon(Icons.search),
