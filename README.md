@@ -1,6 +1,6 @@
-# favoritos_youtube
+# fluttertube
 
-A new Flutter application.
+favoritos do youtube
 
 ## Getting Started
 
