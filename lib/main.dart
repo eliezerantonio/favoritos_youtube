@@ -1,14 +1,14 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
-import 'package:favoritos_youtube/blocs/favorite_bloc.dart';
-import 'package:favoritos_youtube/blocs/videos_bloc.dart';
-import 'package:favoritos_youtube/services/api.dart';
 import 'package:flutter/material.dart';
-
-import 'screens/home_screen.dart';
+import 'package:fluttertube/api.dart';
+import 'package:fluttertube/blocs/favoritos_bloc.dart';
+import 'package:fluttertube/blocs/videos_bloc.dart';
+import 'package:fluttertube/screens/home.dart';
 
 void main() {
   Api api = Api();
-  api.search("eletro");
+  api.search("Flutter");
+
   runApp(MyApp());
 }
 
@@ -17,15 +17,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      bloc: VideoBloc(),
-      child: BlocProvider(
-        bloc: FavoriteBloc(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'FlutterTube',
-          home: HomeScreen(),
-        ),
-      )
+        bloc: VideosBloc(),
+        child: BlocProvider(
+          bloc: FavoritosBloc(),
+          child: MaterialApp(
+              title: 'Flutter Youtube',
+              theme: ThemeData(
+                visualDensity: VisualDensity.adaptivePlatformDensity,
+              ),
+              debugShowCheckedModeBanner: false,
+              home: Home()
+          ),
+        )
     );
   }
 }
